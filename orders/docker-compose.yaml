@@ -1,0 +1,27 @@
+version: "3.7"
+
+services:
+  
+  postgres:
+    image: postgres:14-alpine
+    restart: unless-stopped
+    ports:
+      - 5000:5432    
+    environment:
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_DB: meta2
+    volumes:
+      - '/var/lib/postgresql/data'
+
+  rabbitmq:
+    image: "rabbitmq:management-alpine"
+    restart: unless-stopped
+    environment:
+      RABBITMQ_DEFAULT_USER: guest
+      RABBITMQ_DEFAULT_PASS: guest
+    ports:
+      - "5672:5672"  # AMQP
+      - "15672:15672"  # RabbitMQ Management UI
+
+
